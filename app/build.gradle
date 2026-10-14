@@ -1,11 +1,11 @@
 plugins { id 'com.android.application' }
 
 android {
-    namespace 'com.masiddiqui.zakatcalculator'
+    namespace 'com.masiddiqui.feescalculator'
     compileSdk 35
 
     defaultConfig {
-        applicationId 'com.masiddiqui.zakatcalculator'
+        applicationId 'com.masiddiqui.feescalculator'
         minSdk 23
         targetSdk 35
         versionCode 1
