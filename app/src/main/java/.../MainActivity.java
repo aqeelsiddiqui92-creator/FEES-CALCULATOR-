@@ -1,4 +1,4 @@
-package com.masiddiqui.zakatcalculator;
+package com.masiddiqui.feescalculator;
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebSettings;
