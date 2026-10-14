@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#1565c0">
+<title>SRKIC Fees Calculator M A SIDDIQUI</title>
+<style>
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f5f8;
+    color: #222;
+  }
+  .app {
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 14px;
+  }
+  .header {
+    background: #1565c0;
+    color: white;
+    border-radius: 16px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 3px 12px #0002;
+  }
+  .header h1 { margin: 0; font-size: 25px; }
+  .header p { margin: 6px 0 0; opacity: .9; }
+  .card {
+    background: white;
+    margin-top: 14px;
+    padding: 16px;
+    border-radius: 16px;
+    box-shadow: 0 2px 10px #0001;
+  }
+  label {
+    display: block;
+    font-weight: 700;
+    margin: 13px 0 6px;
+  }
+  input, select, button {
+    width: 100%;
+    min-height: 48px;
+    border: 1px solid #bbb;
+    border-radius: 10px;
+    padding: 10px 12px;
+    font-size: 17px;
+    background: white;
+  }
+  .calculate {
+    margin-top: 18px;
+    border: 0;
+    background: #1565c0;
+    color: white;
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .result {
+    margin-top: 14px;
+    padding: 15px;
+    border-radius: 12px;
+    background: #fffde7;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+  @media (display-mode: standalone) {
+    .app { padding-top: max(14px, env(safe-area-inset-top)); }
+  }
+  @media print {
+    .form-card, .calculate { display: none; }
+    body { background: white; }
+    .card { box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="header">
+    <h1> FEES CALCULATOR</h1>
+    <p>9 TO 12</p>
+  </div>
+
+  <div class="card form-card">
+    <form name="s" onsubmit="return f(event)">
+      <label>Select Class</label>
+      <select name="dropdown">
+        <option value="1" selected>Class 9</option>
+        <option value="2">Class 10</option>
+        <option value="3">Class 11 M/B</option>
+        <option value="4">Class 11 ART</option>
+        <option value="5">Class 12 M/B</option>
+        <option value="6">Class 12 ART</option>
+      </select>
+
+      <label>Select Time</label>
+      <select name="time">
+        <option value="1">Annual Fees</option>
+        <option value="2">October Fees</option>
+      </select>
+
+      <label>Register Date</label>
+      <input type="text" name="DATE">
+
+      <label>GENERAL / OBC</label>
+      <input type="number" name="TS" inputmode="numeric" value="0">
+
+      <label>SC / ST</label>
+      <input type="number" name="SC" inputmode="numeric" value="0">
+
+      <label>STUDENT REGISTER</label>
+      <input type="number" name="SR" inputmode="numeric" value="0">
+
+      <label>ABSENT FINES</label>
+      <input type="number" name="P" inputmode="numeric" value="0">
+
+      <label>LATE FEES</label>
+      <input type="number" name="lf" inputmode="numeric" value="0">
+
+      <label>RE-ADMISSION</label>
+      <input type="number" name="re" inputmode="numeric" value="0">
+
+      <button class="calculate" type="submit">CALCULATE FEES</button>
+    </form>
+  </div>
+
+  <div class="card">
+    <h2>Result</h2>
+    <div id="result" class="result">Enter details and tap CALCULATE FEES.</div>
+  </div>
+</div>
+
+<script>
+function f(event) {
+  if (event) event.preventDefault();
+  var result = [];
+
+var op,pate,lf,x,y,a,b,c,d,cm,re,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,F;
+ pate=document.s.DATE.value;
+ p=document.s.TS.value;
+ q=document.s.SC.value;
+ a=document.s.SR.value;
+ b=document.s.P.value;
+ re=document.s.re.value;
+x=document.s.dropdown.value;
+op=document.s.lf.value;
+var time =document.s.time.value;
+c=6*(p);
+if (p!=0)
+{result.push("FEES OF "+p +"   General/obc student");
+}
+if(q!=0)
+{ result.push("FEES OF "+q+"   SC Student");}
+if (time==1)
+{
+F=(p*1+1*q)*20;
+f=12*(p);
+g=(p*1+q*1)*10 ;
+s=10*p;
+n=2*(p);
+j=20*(p*1+q*1);
+i=5*(p*1+q*1);
+}
+else if (time==2)
+{
+F=0;
+f=0;
+s=0;
+g=0
+n=0;
+j=0;
+i=0;
+}
+
+
+
+if (x==1 )
+{ result.push("FEES OF CLASS 9");
+l=60*(p);
+cm=0;
+d=30*(p);
+z=50*(p*1+1*q);
+u=0;
+h=25*(p*1+1*q);
+if  (time==1)
+{ m=2*(p) ; 
+z=50*(p*1+q*1);
+}
+else if (time==2)
+{ m=0; 
+z=0; }
+}
+else if (x==2)
+{ result.push("FEES OF CLASS 10 ");
+l=60*(p);
+cm=0;
+if (time==1)
+{
+m=2*(p);
+u=501*(1*p+1*q);
+h=25*(p*1+1*q);
+}
+else  if (time==2)
+{ m=0;
+u=0;
+h=25*(p*1+1*q);
+}
+d=30*(p);
+z=0;
+ }
+else if (x==3)
+{ result.push("FEES OF CLASS 11 MATH/BIO");
+h=25*(p*1+1*q);
+if (time==1)
+{
+cm=25*(p*1+1*q);
+z=50*(p*1+q*1);
+}
+else if (time==2)
+{ cm=0;
+z=0; }
+l=90*(p);
+d=30*(p);
+m=0;
+u=0;
+}
+else if (x==4)
+{ result.push("FEES OF CLASS 11 ART");
+h=25*(p*1+1*q);
+cm=0;
+l=90*(p);
+if (time==1)
+{ 
+z=50*(1*p+1*q);
+} 
+else if (time==2)
+{
+z=0;
+}
+u=0;
+d=0;
+m=0;
+} 
+else if (x==5)
+{ result.push("FEES OF CLASS 12 MATH/BIO");
+l=90*(p);
+if (time==1) 
+{
+h=25*(p*1+1*q);
+u=601*(p*1+1*q);
+} 
+else if (time==2)
+{ u=0;
+h=25*(p*1+1*q);
+}
+cm=0;
+d=30*(p);
+z=0;
+m=0;
+}
+else if (x==6)
+{result.push("FEES OF CLASS 12 ART");
+l=90*p
+d=0;
+cm=0;
+z=0;
+m=0
+if (time==1)
+{ h=25*(p*1+1*q);
+u=601*(p*1+q*1);
+
+l=90*(p);
+} else if (time==2)
+{ u=0;
+h=25*(p*1+1*q);
+m=0
+}
+}
+e=a*1+1*b+1*c+1*d+1*F+1*re+m*1+op*1;
+o=6*(p*1+q*1);
+r=12*(p*1+q*1);
+t=30*(p);
+v=t*1+s*1+r*1+o*1+n*1+cm*1+z*1+l*1+u*1+f*1+g*1+1*h+1*i+j*1;
+w=e*1+1*v;
+
+var date = new Date ();
+result.push(date);
+result.push("register Date="+pate);
+result.push(" S register ="+a);
+result.push(" RE ADMISSION ="+re);
+result.push("Absent  Fines ="+b);
+result.push("Late Fees="+op);
+result.push(" ART & CRAFT ="+m);
+result.push(" Dearness ="+c);
+result.push(" SCIENCE  ="+d);
+result.push(" Fan= "+F);
+result.push(" TOTAL  ="+e);
+result.push("  READING ROOM="+f);
+result.push(" Refreshment  ="+g);
+result.push(" EXAMINATION ="+h);
+result.push("  MARKSHEET  ="+i);
+result.push(" MAGAZINE ="+j);
+result.push(" DEVLOPMENT ="+l);
+//result.push(" ART & CRAFT ="+m);
+result.push(" AUDIO VISUAL ="+n);
+result.push(" RED CROSS ="+o);
+result.push(" SCOUT GUIDE ="+r);
+result.push(" POOR STUDENT ="+s);
+result.push(" GAMES FEE="+t);
+result.push("BOARD EXAM=" +u);
+result.push(" registration="+z);
+result.push("CAUTION MONEY="+cm);
+result.push(" Total ="+v);
+result.push(" GRAND TOTAL="+w);
+
+  document.getElementById("result").innerHTML =
+    result.join("<br>") + '<br><br><button type="button" onclick="window.print()">Print / Save</button>';
+  return false;
+}
+
+</script>
+</body>
+</html></body>
+</html>
