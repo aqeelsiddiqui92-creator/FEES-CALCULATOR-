@@ -67,6 +67,9 @@
     font-size: 16px;
     cursor: pointer;
   }
+  .share-btn {
+    background: #0288d1;
+  }
   .result {
     margin-top: 14px;
     padding: 15px;
@@ -77,11 +80,6 @@
   }
   @media (display-mode: standalone) {
     .app { padding-top: max(14px, env(safe-area-inset-top)); }
-  }
-  @media print {
-    .form-card, .calculate, .action-btn { display: none; }
-    body { background: white; }
-    .card { box-shadow: none; }
   }
 </style>
 </head>
@@ -246,14 +244,12 @@ function f(event) {
   result.push(" Total ="+v);
   result.push(" GRAND TOTAL="+w);
 
-  // Plain text version for downloading file
   lastResultText = result.join("\n");
 
-  // HTML version for screen display
   document.getElementById("result").innerHTML =
     result.join("<br>") + 
     '<br><br><button type="button" class="action-btn" onclick="downloadResultFile()">Download Result (TXT)</button>' +
-    '<br><button type="button" class="action-btn" style="background:#1565c0;" onclick="window.print()">Print / PDF</button>';
+    '<br><button type="button" class="action-btn share-btn" onclick="shareResultFile()">Share Result</button>';
   return false;
 }
 
@@ -265,6 +261,18 @@ function downloadResultFile() {
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);
+}
+
+function shareResultFile() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'SRKIC Fees Calculation',
+      text: lastResultText,
+    }).catch((error) => console.log('Sharing failed', error));
+  } else {
+    navigator.clipboard.writeText(lastResultText);
+    alert("Result copied to clipboard!");
+  }
 }
 </script>
 </body>
