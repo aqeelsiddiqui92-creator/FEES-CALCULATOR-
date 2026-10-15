@@ -67,9 +67,6 @@
     font-size: 16px;
     cursor: pointer;
   }
-  .share-btn {
-    background: #0288d1;
-  }
   .result {
     margin-top: 14px;
     padding: 15px;
@@ -140,7 +137,7 @@
 </div>
 
 <script>
-let lastResultText = "";
+let lastResultHTML = "";
 
 function f(event) {
   if (event) event.preventDefault();
@@ -244,35 +241,22 @@ function f(event) {
   result.push(" Total ="+v);
   result.push(" GRAND TOTAL="+w);
 
-  lastResultText = result.join("\n");
+  lastResultHTML = result.join("<br>");
 
   document.getElementById("result").innerHTML =
-    result.join("<br>") + 
-    '<br><br><button type="button" class="action-btn" onclick="downloadResultFile()">Download Result (TXT)</button>' +
-    '<br><button type="button" class="action-btn share-btn" onclick="shareResultFile()">Share Result</button>';
+    lastResultHTML + 
+    '<br><br><button type="button" class="action-btn" onclick="openPrintWindow()">Open / Print Result Page</button>';
   return false;
 }
 
-function downloadResultFile() {
-  const blob = new Blob([lastResultText], { type: 'text/plain;charset=utf-8' });
-  const link = document.createElement('a');
-  link.href = URL.createObjectURL(blob);
-  link.download = 'Fees_Calculation_Report.txt';
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
-}
-
-function shareResultFile() {
-  if (navigator.share) {
-    navigator.share({
-      title: 'SRKIC Fees Calculation',
-      text: lastResultText,
-    }).catch((error) => console.log('Sharing failed', error));
-  } else {
-    navigator.clipboard.writeText(lastResultText);
-    alert("Result copied to clipboard!");
-  }
+function openPrintWindow() {
+  var win = window.open('', '_blank');
+  win.document.write('<html><head><title>Fees Receipt</title></head><body style="font-family:Arial; padding:20px; font-size:18px;">');
+  win.document.write('<h2>SRKIC Fees Calculation Report</h2><hr>');
+  win.document.write(lastResultHTML);
+  win.document.write('<br><br><button onclick="window.print()" style="padding:10px 20px; font-size:16px; background:blue; color:white; border:none; border-radius:5px;">Print / Save as PDF</button>');
+  win.document.write('</body></html>');
+  win.document.close();
 }
 </script>
 </body>
