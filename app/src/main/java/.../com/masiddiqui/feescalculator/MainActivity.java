@@ -5,16 +5,17 @@ import android.os.Bundle;
 import android.content.Context;
 import android.print.PrintAttributes;
 import android.print.PrintManager;
-import android.print.PrintDocumentAdapter;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.webkit.WebChromeClient;
 import android.webkit.JavascriptInterface;
+import android.print.PrintDocumentAdapter;
+import android.widget.Toast;
 
 public class MainActivity extends Activity {
 
-    WebView w;
+    private WebView w;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,39 +31,49 @@ public class MainActivity extends Activity {
 
         w.addJavascriptInterface(new Object() {
             @JavascriptInterface
-            public void printPage() {
-                runOnUiThread(() -> createWebPrintJob(w));
+            public void savePDF() {
+                runOnUiThread(() -> createPDF(w));
             }
         }, "AndroidPrint");
 
-        w.loadUrl("file:///android_asset/index.html");
-
         setContentView(w);
+
+        w.loadUrl("file:///android_asset/index.html");
     }
 
-    private void createWebPrintJob(WebView webView) {
+    private void createPDF(WebView webView) {
 
         PrintManager printManager =
-                (PrintManager) getSystemService(Context.PRINT_SERVICE);
+            (PrintManager) getSystemService(Context.PRINT_SERVICE);
 
         if (printManager != null) {
 
-            String jobName = "Fees Calculator";
+            String jobName = "Fees Receipt";
 
             PrintDocumentAdapter adapter =
-                    webView.createPrintDocumentAdapter(jobName);
+                webView.createPrintDocumentAdapter(jobName);
 
             PrintAttributes attributes =
-                    new PrintAttributes.Builder()
-                            .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
-                            .setResolution(
-                                    new PrintAttributes.Resolution(
-                                            "pdf", "pdf", 300, 300))
-                            .setMinMargins(
-                                    PrintAttributes.Margins.NO_MARGINS)
-                            .build();
+                new PrintAttributes.Builder()
+                    .setMediaSize(PrintAttributes.MediaSize.ISO_A4)
+                    .setResolution(
+                        new PrintAttributes.Resolution(
+                            "pdf", "pdf", 300, 300
+                        )
+                    )
+                    .setMinMargins(
+                        PrintAttributes.Margins.NO_MARGINS
+                    )
+                    .build();
 
             printManager.print(jobName, adapter, attributes);
+
+        } else {
+            Toast.makeText(
+                this,
+                "PDF save facility is not available",
+                Toast.LENGTH_LONG
+            ).show();
         }
     }
 }
