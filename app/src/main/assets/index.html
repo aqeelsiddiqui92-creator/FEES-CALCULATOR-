@@ -78,6 +78,11 @@
   @media (display-mode: standalone) {
     .app { padding-top: max(14px, env(safe-area-inset-top)); }
   }
+  @media print {
+    .form-card, .calculate, .action-btn { display: none; }
+    body { background: white; }
+    .card { box-shadow: none; }
+  }
 </style>
 </head>
 <body>
@@ -137,7 +142,7 @@
 </div>
 
 <script>
-let lastResultHTML = "";
+let lastResultText = "";
 
 function f(event) {
   if (event) event.preventDefault();
@@ -241,22 +246,25 @@ function f(event) {
   result.push(" Total ="+v);
   result.push(" GRAND TOTAL="+w);
 
-  lastResultHTML = result.join("<br>");
+  // Plain text version for downloading file
+  lastResultText = result.join("\n");
 
+  // HTML version for screen display
   document.getElementById("result").innerHTML =
-    lastResultHTML + 
-    '<br><br><button type="button" class="action-btn" onclick="openPrintWindow()">Open / Print Result Page</button>';
+    result.join("<br>") + 
+    '<br><br><button type="button" class="action-btn" onclick="downloadResultFile()">Download Result (TXT)</button>' +
+    '<br><button type="button" class="action-btn" style="background:#1565c0;" onclick="window.print()">Print / PDF</button>';
   return false;
 }
 
-function openPrintWindow() {
-  var win = window.open('', '_blank');
-  win.document.write('<html><head><title>Fees Receipt</title></head><body style="font-family:Arial; padding:20px; font-size:18px;">');
-  win.document.write('<h2>SRKIC Fees Calculation Report</h2><hr>');
-  win.document.write(lastResultHTML);
-  win.document.write('<br><br><button onclick="AndroidPrint.printPage()">Print / PDF</button>
-  win.document.write('</body></html>');
-  win.document.close();
+function downloadResultFile() {
+  const blob = new Blob([lastResultText], { type: 'text/plain;charset=utf-8' });
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = 'Fees_Calculation_Report.txt';
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 </script>
 </body>
