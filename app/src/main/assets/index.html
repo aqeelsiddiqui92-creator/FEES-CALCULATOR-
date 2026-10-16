@@ -254,7 +254,7 @@ function openPrintWindow() {
   win.document.write('<html><head><title>Fees Receipt</title></head><body style="font-family:Arial; padding:20px; font-size:18px;">');
   win.document.write('<h2>SRKIC Fees Calculation Report</h2><hr>');
   win.document.write(lastResultHTML);
-  win.document.write('<br><br><button onclick="window.print()" style="padding:10px 20px; font-size:16px; background:blue; color:white; border:none; border-radius:5px;">Print / Save as PDF</button>');
+  win.document.write('<br><br><button onclick="AndroidPrint.printPage()">Print / PDF</button>
   win.document.write('</body></html>');
   win.document.close();
 }
